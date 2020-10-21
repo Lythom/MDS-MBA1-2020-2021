@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6158284583810049216}
   - component: {fileID: 6158284583810049217}
   - component: {fileID: 6158284583810049230}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GirlPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
