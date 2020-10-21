@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-[RequireComponent(typeof(SpriteRenderer), typeof(Animator))]
+[RequireComponent(typeof(SpriteRenderer), typeof(Animator), typeof(Rigidbody2D))]
 public class AnimateGirl : MonoBehaviour
 {
     [Tooltip("Vitesse max en unités par secondes")]
@@ -9,6 +9,7 @@ public class AnimateGirl : MonoBehaviour
     // Autres scripts
     private SpriteRenderer spriteRenderer;
     private Animator animator;
+    private Rigidbody2D rigidbody2D;
 
     // variables de mon instance
     private Vector3 speed;
@@ -22,11 +23,12 @@ public class AnimateGirl : MonoBehaviour
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        rigidbody2D = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        var maxDistancePerFrame = MaxSpeed * Time.deltaTime;
+        var maxDistancePerFrame = MaxSpeed;
         Vector3 move = Vector3.zero;
 
         if (Input.GetKey(KeyCode.RightArrow))
@@ -59,6 +61,6 @@ public class AnimateGirl : MonoBehaviour
         animator.SetBool(GoingUp, Input.GetKey(KeyCode.UpArrow));
 
         animator.SetFloat(Speed, move.magnitude * 10f);
-        this.transform.position = this.transform.position + move;
+        rigidbody2D.velocity = move;
     }
 }
