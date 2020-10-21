@@ -50,6 +50,7 @@ public class AnimateGirl : MonoBehaviour
         }
 
         if (animator.GetBool(Roll)) animator.ResetTrigger(Roll);
+        // Ici on utilise GetKeyDown, qui ne retourne true que la première frame où la touche est appuyée
         if (Input.GetKeyDown(KeyCode.Space))
         {
             animator.SetTrigger(Roll);
