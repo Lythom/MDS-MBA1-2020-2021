@@ -1,0 +1,6 @@
+A quoi sert getComponent ?
+
+trigger
+
+systeme de tag
+

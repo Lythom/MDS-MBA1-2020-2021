@@ -5,6 +5,10 @@ public class MoveBall : MonoBehaviour {
     public float Speed = 3;
     public float ShapeRecoverRate = 0.05f;
 
+    public GameObject OnPlayerCollisionFXPrefab;
+    public GameObject OnGoalCollisionFXPrefab;
+    public GameObject OnBallCollisionFXPrefab;
+
     private Rigidbody2D rigidbody2D;
 
     private DateTime _nextChangeTime = DateTime.Now;
@@ -22,10 +26,22 @@ public class MoveBall : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Player")) {
+        if (other.gameObject.CompareTag("Player")) {
             GetComponent<SpriteRenderer>().color = Color.red;
             _nextChangeTime = DateTime.Now.AddMilliseconds(150);
             transform.localScale = new Vector3(1.1f, 0.7f, 1f);
+            Instantiate(OnPlayerCollisionFXPrefab, (Vector3) other.contacts[0].point, Quaternion.identity);
+        }
+        
+        if (other.gameObject.CompareTag("Ball")) {
+            Instantiate(OnBallCollisionFXPrefab, (Vector3) other.contacts[0].point, Quaternion.identity);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other) {
+        if (other.gameObject.CompareTag("Goal")) {
+            Instantiate(OnGoalCollisionFXPrefab, this.transform.position, Quaternion.identity);
+            GameManager.instance.RecordGoal(transform.position.x < 0 ? Side.Orange : Side.Blue);
         }
     }
 }
