@@ -41,7 +41,7 @@ public class MoveBall : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D other) {
         if (other.gameObject.CompareTag("Goal")) {
             Instantiate(OnGoalCollisionFXPrefab, this.transform.position, Quaternion.identity);
-            GameManager.instance.RecordGoal(transform.position.x < 0 ? Side.Orange : Side.Blue);
+            EventManager<Side>.TriggerEvent("Goal", transform.position.x < 0 ? Side.Orange : Side.Blue);
         }
     }
 }
